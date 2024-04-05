@@ -3,27 +3,29 @@ import subprocess
 import os
 
 # Fonction pour exécuter le programme SpeedCalc
-def lancer_speedcalc():
+def calculer_mousse():
+    pass
+    #try:
+    #    # Récupérer les valeurs des champs de texte
+    #    distance = float(champ_distance.get())
+    #    temps = float(champ_temps.get())
+    #    # Calculer la vitesse
+    #    vitesse = distance / temps
+    #    # Afficher la vitesse dans le label de résultat
+    #    label_resultat.config(text=f"Vitesse: {vitesse:.2f} m/s")
+    #except ValueError:
+    #    # Gérer les erreurs si les valeurs entrées ne sont pas valides
+    #    label_resultat.config(text="Entrez des valeurs numériques valides!")
+
+# Fonction pour exécuter le script EnstaCenter.py
+def retour():
     # Récupérer le chemin complet du répertoire actuel
     chemin_actuel = os.path.dirname(os.path.abspath(__file__))
-    # Spécifier le chemin complet vers SpeedCalc.py
-    chemin_speedcalc = os.path.join(chemin_actuel, "SpeedCalc.py")
+    # Spécifier le chemin complet vers EnstaCenter.py
+    chemin_enstacenter = os.path.join(chemin_actuel, "EnstaCenter.py")
     # Commande à exécuter dans le terminal
-    commande = "python speedcalc.py"
-    
-    # Ouvrir un terminal et exécuter la commande
-    subprocess.Popen(commande, shell=True)
-    window.destroy()
-    
-# Fonction pour exécuter le programme FoamCalc
-def lancer_foamcalc():
-    # Récupérer le chemin complet du répertoire actuel
-    chemin_actuel = os.path.dirname(os.path.abspath(__file__))
-    # Spécifier le chemin complet vers FoamCalc.py
-    chemin_FoamCalc = os.path.join(chemin_actuel, "FoamCalc.py")
-    # Commande à exécuter dans le terminal
-    commande = "python FoamCalc.py"
-    
+    commande = "python " + chemin_enstacenter
+
     # Ouvrir un terminal et exécuter la commande
     subprocess.Popen(commande, shell=True)
     window.destroy()
@@ -84,29 +86,11 @@ dessiner_degrade()
 logo_label = Label(window, image=logo_image)
 logo_label.place(relx=0.5, rely=0.2, anchor=CENTER)  # Positionnement au centre
 
-# Bouton pour lancer SpeedCalc
-bouton_speedcalc = Button(window, text="SpeedCalc", command=lancer_speedcalc, width=15)
-bouton_speedcalc.place(relx=0.2, rely=0.7, anchor=CENTER)  # Positionnement au centre
+# Champ pour calcul de masse d'ai dans la mousse
 
-# Bouton pour lancer SpeedCalc
-bouton_speedcalc = Button(window, text="FoamCalc", command=lancer_foamcalc, width=15)
-bouton_speedcalc.place(relx=0.2, rely=0.8, anchor=CENTER)  # Positionnement au centre
-
-# Bouton placeholder
-bouton_placeholder = Button(window, text="SOON", command="", width=15)
-bouton_placeholder.place(relx=0.5, rely=0.7, anchor=CENTER)  # Positionnement au centre
-
-# Bouton placeholder
-bouton_placeholder = Button(window, text="SOON", command="", width=15)
-bouton_placeholder.place(relx=0.5, rely=0.8, anchor=CENTER)  # Positionnement au centre
-
-# Bouton placeholder
-bouton_placeholder = Button(window, text="SOON", command="", width=15)
-bouton_placeholder.place(relx=0.8, rely=0.7, anchor=CENTER)  # Positionnement au centre
-
-# Bouton placeholder
-bouton_placeholder = Button(window, text="SOON", command="", width=15)
-bouton_placeholder.place(relx=0.8, rely=0.8, anchor=CENTER)  # Positionnement au centre
+# Bouton "Retour" en haut à droite
+bouton_retour = Button(window, text="Retour", command=retour)
+bouton_retour.place(relx=0.95, rely=0.05, anchor=NE)  # Positionnement en haut à droite
 
 # Lier la fonction de dessin au redimensionnement de la fenêtre
 window.bind("<Configure>", dessiner_degrade)
