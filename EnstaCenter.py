@@ -94,6 +94,10 @@ bouton_speedcalc.place(relx=0.2, rely=0.8, anchor=CENTER)  # Positionnement au c
 
 # Bouton placeholder
 bouton_placeholder = Button(window, text="SOON", command="", width=15)
+bouton_placeholder.place(relx=0.2, rely=0.9, anchor=CENTER)  # Positionnement au centre
+
+# Bouton placeholder
+bouton_placeholder = Button(window, text="SOON", command="", width=15)
 bouton_placeholder.place(relx=0.5, rely=0.7, anchor=CENTER)  # Positionnement au centre
 
 # Bouton placeholder
@@ -102,11 +106,19 @@ bouton_placeholder.place(relx=0.5, rely=0.8, anchor=CENTER)  # Positionnement au
 
 # Bouton placeholder
 bouton_placeholder = Button(window, text="SOON", command="", width=15)
+bouton_placeholder.place(relx=0.5, rely=0.9, anchor=CENTER)  # Positionnement au centre
+
+# Bouton placeholder
+bouton_placeholder = Button(window, text="SOON", command="", width=15)
 bouton_placeholder.place(relx=0.8, rely=0.7, anchor=CENTER)  # Positionnement au centre
 
 # Bouton placeholder
 bouton_placeholder = Button(window, text="SOON", command="", width=15)
 bouton_placeholder.place(relx=0.8, rely=0.8, anchor=CENTER)  # Positionnement au centre
+
+# Bouton placeholder
+bouton_placeholder = Button(window, text="SOON", command="", width=15)
+bouton_placeholder.place(relx=0.8, rely=0.9, anchor=CENTER)  # Positionnement au centre
 
 # Lier la fonction de dessin au redimensionnement de la fenêtre
 window.bind("<Configure>", dessiner_degrade)

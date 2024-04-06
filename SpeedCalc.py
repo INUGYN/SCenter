@@ -2,19 +2,50 @@ from tkinter import *
 import subprocess
 import os
 
+# Variables pour l'unité de mesure
+unite_mesure = "m"  # Par défaut, en mètres
+
+# Fonction pour mettre à jour l'unité de mesure en fonction de la sélection de l'utilisateur
+def mettre_a_jour_unite_mesure():
+    global unite_mesure
+    unite_mesure = ""
+    if var_metre.get():
+        unite_mesure = "m"
+        var_centimetre.set(0)  # Décocher la case centimètre
+        var_kilometre.set(0)   # Décocher la case kilomètre
+    elif var_centimetre.get():
+        unite_mesure = "cm"
+        var_metre.set(0)       # Décocher la case mètre
+        var_kilometre.set(0)   # Décocher la case kilomètre
+    elif var_kilometre.get():
+        unite_mesure = "km"
+        var_metre.set(0)       # Décocher la case mètre
+        var_centimetre.set(0)  # Décocher la case centimètre
+
 # Fonction pour exécuter le programme SpeedCalc
 def calculer_vitesse():
     try:
         # Récupérer les valeurs des champs de texte
         distance = float(champ_distance.get())
         temps = float(champ_temps.get())
+        # Appliquer l'unité de mesure
+        if unite_mesure == "cm":
+            distance /= 100  # Convertir en mètres
+        elif unite_mesure == "km":
+            distance *= 1000  # Convertir en mètres
         # Calculer la vitesse
         vitesse = distance / temps
         # Afficher la vitesse dans le label de résultat
-        label_resultat.config(text=f"Vitesse: {vitesse:.2f} m/s")
+        if unite_mesure == "cm":
+            label_resultat.config(text=f"Vitesse: {vitesse * 100:.2f} cm/s")
+        elif unite_mesure == "km":
+            label_resultat.config(text=f"Vitesse: {vitesse / 1000:.2f} km/s")
+        else:
+            label_resultat.config(text=f"Vitesse: {vitesse:.2f} m/s")
     except ValueError:
         # Gérer les erreurs si les valeurs entrées ne sont pas valides
         label_resultat.config(text="Entrez des valeurs numériques valides!")
+
 
 # Fonction pour exécuter le script EnstaCenter.py
 def retour():
@@ -88,13 +119,13 @@ logo_label.place(relx=0.5, rely=0.2, anchor=CENTER)  # Positionnement au centre
 # Champ de texte pour la distance
 champ_distance = Entry(window)
 champ_distance.place(relx=0.5, rely=0.5, anchor=CENTER)  # Positionnement au centre horizontal
-label_distance = Label(window, text="Distance (m):")
+label_distance = Label(window, text="Distance:")
 label_distance.place(relx=0.3, rely=0.5, anchor=E)  # Positionnement à gauche
 
 # Champ de texte pour le temps
 champ_temps = Entry(window)
 champ_temps.place(relx=0.5, rely=0.6, anchor=CENTER)  # Positionnement au centre horizontal
-label_temps = Label(window, text="Temps (s):")
+label_temps = Label(window, text="Temps:")
 label_temps.place(relx=0.3, rely=0.6, anchor=E)  # Positionnement à gauche
 
 # Bouton pour calculer la vitesse
@@ -108,6 +139,24 @@ label_resultat.place(relx=0.5, rely=0.8, anchor=CENTER)  # Positionnement au cen
 # Bouton "Retour" en haut à droite
 bouton_retour = Button(window, text="Retour", command=retour)
 bouton_retour.place(relx=0.95, rely=0.05, anchor=NE)  # Positionnement en haut à droite
+
+# Variables de type IntVar pour les options de mesure
+var_metre = IntVar()
+var_centimetre = IntVar()
+var_kilometre = IntVar()
+
+# Créer des boutons cocher pour les options de mesure
+checkbutton_metre = Checkbutton(window, text="Mètre", variable=var_metre, command=mettre_a_jour_unite_mesure)
+checkbutton_metre.place(relx=0.3, rely=0.4, anchor=E)
+
+checkbutton_centimetre = Checkbutton(window, text="Centimètre", variable=var_centimetre, command=mettre_a_jour_unite_mesure)
+checkbutton_centimetre.place(relx=0.5, rely=0.4, anchor=CENTER)
+
+checkbutton_kilometre = Checkbutton(window, text="Kilomètre", variable=var_kilometre, command=mettre_a_jour_unite_mesure)
+checkbutton_kilometre.place(relx=0.7, rely=0.4, anchor=W)
+
+# Appel initial pour mettre à jour l'unité de mesure
+mettre_a_jour_unite_mesure()
 
 # Lier la fonction de dessin au redimensionnement de la fenêtre
 window.bind("<Configure>", dessiner_degrade)
