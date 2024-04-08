@@ -1,24 +1,119 @@
 from tkinter import *
+import tkinter as tk
 import subprocess
+import webbrowser
+import requests
 import os
+
+
+# Version actuellement installée
+version_installee = "1.0"  # Remplacez par la version installée sur votre système
+
+# Création d'une variable redirigeant vers le répertoire
+repertoire = os.path.dirname(os.path.abspath(__file__))
+repertoire = os.path.normpath(repertoire)
+maj_activate = "non"
+
+
+def maj_test():
+    global maj_activate
+    # URL de votre référentiel GitHub
+    github_repo_api = 'https://api.github.com/repos/INUGYN/EnstaCenterMAJ'
+
+    try:
+        # Obtenir les informations des releases du référentiel
+        releases_api = f"{github_repo_api}/releases"
+        response = requests.get(releases_api)
+
+        if response.status_code == 200:
+            releases = response.json()
+            if releases:
+                latest_release = releases[0]
+                latest_version = latest_release['tag_name']
+                latest_version_url = latest_release['html_url']
+
+                if latest_version != version_installee:
+                    maj(latest_version)
+                else:
+                    print("Votre version est à jour.")
+            else:
+                print("Aucune release disponible pour ce référentiel.")
+        else:
+            print("Erreur lors de la récupération des informations des releases (Code de statut :", response.status_code, ")")
+    except Exception as e:
+        print("Pas d'internet:", e)
+
+
+def maj(latest_version):
+    # Fonction appelée lorsque le bouton de mise à jour est cliqué
+    def update_button_click():
+        webbrowser.open("https://github.com/INUGYN/EnstaCenter/archive/refs/heads/main.zip")
+        global maj_activate
+        maj_activate = "oui"
+        exit()
+
+    # Fonction appelée lorsque le bouton Ignorer est cliqué
+    def ignore_button_click():
+        window.destroy()
+
+    # Création de la fenêtre
+    window = tk.Tk()
+    window.title("Mise à jour")
+    window.iconbitmap("logo.ico")
+
+    # Obtention des dimensions de l'écran
+    screen_width = window.winfo_screenwidth()
+    screen_height = window.winfo_screenheight()
+
+    # Dimensions de la fenêtre
+    window_width = 400
+    window_height = 250
+
+    # Calcul des coordonnées pour centrer la fenêtre
+    x = int(screen_width / 2 - window_width / 2)
+    y = int(screen_height / 2 - window_height / 2)
+
+    # Positionnement de la fenêtre au centre de l'écran
+    window.geometry(f"{window_width}x{window_height}+{x}+{y}")
+
+    # Texte indiquant qu'il y a une mise à jour
+    text_label = tk.Label(window, text=f"La version v{latest_version} est disponible !", font=("Arial", 14))
+    text_label.pack(pady=20)
+
+    text_label2 = tk.Label(window, text=f"Vous avez la version v{version_installee}.", font=("Arial", 14))
+    text_label2.pack(pady=20)
+
+    # Bouton de mise à jour
+    update_button = tk.Button(window, text="Mettre à jour", font=("Arial", 12), command=update_button_click)
+    update_button.pack(pady=10)
+
+    # Bouton Ignorer
+    ignore_button = tk.Button(window, text="Ignorer", font=("Arial", 12), command=ignore_button_click)
+    ignore_button.pack(pady=10)
+
+    # Boucle principale de la fenêtre
+    window.mainloop()
+
 
 # Fonction pour exécuter le programme SpeedCalc
 def lancer_speedcalc():
     # Commande à exécuter dans le terminal
     commande = "python CalcFiles/speedcalc.py"
-    
+
     # Ouvrir un terminal et exécuter la commande
     subprocess.Popen(commande, shell=True)
     window.destroy()
-    
+
+
 # Fonction pour exécuter le programme FoamCalc
 def lancer_foamcalc():
     # Commande à exécuter dans le terminal
     commande = "python CalcFiles/FoamCalc.py"
-    
+
     # Ouvrir un terminal et exécuter la commande
     subprocess.Popen(commande, shell=True)
     window.destroy()
+
 
 # Fonction pour dessiner le dégradé
 def dessiner_degrade(event=None):
@@ -34,6 +129,7 @@ def dessiner_degrade(event=None):
         b = 254  # Bleu constant
         couleur = '#{:02x}{:02x}{:02x}'.format(r, g, b)  # Format de couleur hexadécimal
         canvas.create_line(0, i, largeur, i, fill=couleur)
+
 
 # Créer la fenêtre principale
 window = Tk()
@@ -71,6 +167,12 @@ canvas.place(relx=0, rely=0, relwidth=1, relheight=1)  # Remplir tout l'espace d
 
 # Dessiner le dégradé initial
 dessiner_degrade()
+
+# Afficher la version
+version_text = Label(window, text=f"Version : {version_installee}")
+# Positionner le Text dans la fenêtre
+version_text.place(relx=0.0, rely=0.0)
+
 
 # Créer un label pour afficher le logo
 logo_label = Label(window, image=logo_image)
@@ -114,6 +216,9 @@ bouton_placeholder.place(relx=0.8, rely=0.9, anchor=CENTER)  # Positionnement au
 
 # Lier la fonction de dessin au redimensionnement de la fenêtre
 window.bind("<Configure>", dessiner_degrade)
+
+# Appeler la fonction de test de mise à jour
+maj_test()
 
 # Lancer l'application Tkinter
 window.mainloop()
