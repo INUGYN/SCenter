@@ -5,26 +5,43 @@ import os
 # Variables pour l'unité de mesure
 unite_mesure = "m"  # Par défaut, en mètres
 
+# Fonction pour cocher kilometre
+def kilometre_check():
+    var_centimetre.set(0)
+    var_metre.set(0)
+
+    mettre_a_jour_unite_mesure()
+
+def metre_check():
+    var_centimetre.set(0)
+    var_kilometre.set(0)
+
+    mettre_a_jour_unite_mesure()
+
+def centimetre_check():
+    var_metre.set(0)
+    var_kilometre.set(0)
+
+    mettre_a_jour_unite_mesure()
+
 # Fonction pour mettre à jour l'unité de mesure en fonction de la sélection de l'utilisateur
 def mettre_a_jour_unite_mesure():
     global unite_mesure
-    unite_mesure = ""
+
     if var_metre.get():
         unite_mesure = "m"
-        var_centimetre.set(0)  # Décocher la case centimètre
-        var_kilometre.set(0)   # Décocher la case kilomètre
     elif var_centimetre.get():
         unite_mesure = "cm"
-        var_metre.set(0)       # Décocher la case mètre
-        var_kilometre.set(0)   # Décocher la case kilomètre
     elif var_kilometre.get():
         unite_mesure = "km"
-        var_metre.set(0)       # Décocher la case mètre
-        var_centimetre.set(0)  # Décocher la case centimètre
 
 # Fonction pour exécuter le programme SpeedCalc
 def calculer_vitesse():
     try:
+        # Vérifier si au moins une case est cochée
+        if not (var_metre.get() or var_centimetre.get() or var_kilometre.get()):
+            raise ValueError("Sélectionnez une unité de mesure.")
+
         # Récupérer les valeurs des champs de texte
         distance = float(champ_distance.get())
         temps = float(champ_temps.get())
@@ -36,25 +53,17 @@ def calculer_vitesse():
         # Calculer la vitesse
         vitesse = distance / temps
         # Afficher la vitesse dans le label de résultat
-        if unite_mesure == "cm":
-            label_resultat.config(text=f"Vitesse: {vitesse * 100:.2f} cm/s")
-        elif unite_mesure == "km":
-            label_resultat.config(text=f"Vitesse: {vitesse / 1000:.2f} km/s")
-        else:
-            label_resultat.config(text=f"Vitesse: {vitesse:.2f} m/s")
-    except ValueError:
+        label_resultat.config(text=f"Vitesse: {vitesse * 100:.2f} cm/s, {vitesse:.2f} m/s, {vitesse / 1000:.2f} km/s")
+        
+    except ValueError as e:
         # Gérer les erreurs si les valeurs entrées ne sont pas valides
-        label_resultat.config(text="Entrez des valeurs numériques valides!")
-
+        label_resultat.config(text=str(e))
 
 # Fonction pour exécuter le script EnstaCenter.py
 def retour():
-    # Récupérer le chemin complet du répertoire actuel
-    chemin_actuel = os.path.dirname(os.path.abspath(__file__))
-    # Spécifier le chemin complet vers EnstaCenter.py
-    chemin_enstacenter = os.path.join(chemin_actuel, "EnstaCenter.py")
     # Commande à exécuter dans le terminal
-    commande = "python " + chemin_enstacenter
+    commande = "cd ../"
+    commande = "python " + "EnstaCenter.py"
 
     # Ouvrir un terminal et exécuter la commande
     subprocess.Popen(commande, shell=True)
@@ -118,23 +127,23 @@ logo_label.place(relx=0.5, rely=0.2, anchor=CENTER)  # Positionnement au centre
 
 # Champ de texte pour la distance
 champ_distance = Entry(window)
-champ_distance.place(relx=0.5, rely=0.5, anchor=CENTER)  # Positionnement au centre horizontal
+champ_distance.place(relx=0.5, rely=0.6, anchor=CENTER)  # Positionnement au centre horizontal
 label_distance = Label(window, text="Distance:")
-label_distance.place(relx=0.3, rely=0.5, anchor=E)  # Positionnement à gauche
+label_distance.place(relx=0.3, rely=0.6, anchor=E)  # Positionnement à gauche
 
 # Champ de texte pour le temps
 champ_temps = Entry(window)
-champ_temps.place(relx=0.5, rely=0.6, anchor=CENTER)  # Positionnement au centre horizontal
+champ_temps.place(relx=0.5, rely=0.7, anchor=CENTER)  # Positionnement au centre horizontal
 label_temps = Label(window, text="Temps:")
-label_temps.place(relx=0.3, rely=0.6, anchor=E)  # Positionnement à gauche
+label_temps.place(relx=0.3, rely=0.7, anchor=E)  # Positionnement à gauche
 
 # Bouton pour calculer la vitesse
 bouton_calculer = Button(window, text="Calculer la vitesse", command=calculer_vitesse)
-bouton_calculer.place(relx=0.5, rely=0.7, anchor=CENTER)  # Positionnement au centre
+bouton_calculer.place(relx=0.5, rely=0.8, anchor=CENTER)  # Positionnement au centre
 
 # Label pour afficher le résultat
 label_resultat = Label(window, text="")
-label_resultat.place(relx=0.5, rely=0.8, anchor=CENTER)  # Positionnement au centre
+label_resultat.place(relx=0.5, rely=0.9, anchor=CENTER)  # Positionnement au centre
 
 # Bouton "Retour" en haut à droite
 bouton_retour = Button(window, text="Retour", command=retour)
@@ -146,14 +155,14 @@ var_centimetre = IntVar()
 var_kilometre = IntVar()
 
 # Créer des boutons cocher pour les options de mesure
-checkbutton_metre = Checkbutton(window, text="Mètre", variable=var_metre, command=mettre_a_jour_unite_mesure)
-checkbutton_metre.place(relx=0.3, rely=0.4, anchor=E)
+checkbutton_metre = Checkbutton(window, text="Mètre", variable=var_metre, command=metre_check)
+checkbutton_metre.place(relx=0.3, rely=0.5, anchor=E)
 
-checkbutton_centimetre = Checkbutton(window, text="Centimètre", variable=var_centimetre, command=mettre_a_jour_unite_mesure)
-checkbutton_centimetre.place(relx=0.5, rely=0.4, anchor=CENTER)
+checkbutton_centimetre = Checkbutton(window, text="Centimètre", variable=var_centimetre, command=centimetre_check)
+checkbutton_centimetre.place(relx=0.5, rely=0.5, anchor=CENTER)
 
-checkbutton_kilometre = Checkbutton(window, text="Kilomètre", variable=var_kilometre, command=mettre_a_jour_unite_mesure)
-checkbutton_kilometre.place(relx=0.7, rely=0.4, anchor=W)
+checkbutton_kilometre = Checkbutton(window, text="Kilomètre", variable=var_kilometre, command=kilometre_check)
+checkbutton_kilometre.place(relx=0.7, rely=0.5, anchor=W)
 
 # Appel initial pour mettre à jour l'unité de mesure
 mettre_a_jour_unite_mesure()

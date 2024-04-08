@@ -19,12 +19,9 @@ def calculer_mousse():
 
 # Fonction pour exécuter le script EnstaCenter.py
 def retour():
-    # Récupérer le chemin complet du répertoire actuel
-    chemin_actuel = os.path.dirname(os.path.abspath(__file__))
-    # Spécifier le chemin complet vers EnstaCenter.py
-    chemin_enstacenter = os.path.join(chemin_actuel, "EnstaCenter.py")
     # Commande à exécuter dans le terminal
-    commande = "python " + chemin_enstacenter
+    commande = "cd ../"
+    commande = "python " + "EnstaCenter.py"
 
     # Ouvrir un terminal et exécuter la commande
     subprocess.Popen(commande, shell=True)

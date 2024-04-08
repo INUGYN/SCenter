@@ -4,12 +4,8 @@ import os
 
 # Fonction pour exécuter le programme SpeedCalc
 def lancer_speedcalc():
-    # Récupérer le chemin complet du répertoire actuel
-    chemin_actuel = os.path.dirname(os.path.abspath(__file__))
-    # Spécifier le chemin complet vers SpeedCalc.py
-    chemin_speedcalc = os.path.join(chemin_actuel, "SpeedCalc.py")
     # Commande à exécuter dans le terminal
-    commande = "python speedcalc.py"
+    commande = "python CalcFiles/speedcalc.py"
     
     # Ouvrir un terminal et exécuter la commande
     subprocess.Popen(commande, shell=True)
@@ -17,12 +13,8 @@ def lancer_speedcalc():
     
 # Fonction pour exécuter le programme FoamCalc
 def lancer_foamcalc():
-    # Récupérer le chemin complet du répertoire actuel
-    chemin_actuel = os.path.dirname(os.path.abspath(__file__))
-    # Spécifier le chemin complet vers FoamCalc.py
-    chemin_FoamCalc = os.path.join(chemin_actuel, "FoamCalc.py")
     # Commande à exécuter dans le terminal
-    commande = "python FoamCalc.py"
+    commande = "python CalcFiles/FoamCalc.py"
     
     # Ouvrir un terminal et exécuter la commande
     subprocess.Popen(commande, shell=True)
