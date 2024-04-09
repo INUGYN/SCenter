@@ -9,6 +9,14 @@ import os
 # Version actuellement installée
 version_installee = "1.0"  # Remplacez par la version installée sur votre système
 
+def patch():
+    url_patch = "https://github.com/INUGYN/EnstaCenterMAJ/releases"
+    webbrowser.open(url_patch)
+
+def report_bug():
+    url_report = "mailto:matteovalleix83@gmail.com?Subject=Bug%20Report%20from%20EnstaCenter"
+    webbrowser.open(url_report)
+
 # Création d'une variable redirigeant vers le répertoire
 repertoire = os.path.dirname(os.path.abspath(__file__))
 repertoire = os.path.normpath(repertoire)
@@ -98,7 +106,7 @@ def maj(latest_version):
 # Fonction pour exécuter le programme SpeedCalc
 def lancer_speedcalc():
     # Commande à exécuter dans le terminal
-    commande = "python CalcFiles/speedcalc.py"
+    commande = "python AppFiles/speedcalc.py"
 
     # Ouvrir un terminal et exécuter la commande
     subprocess.Popen(commande, shell=True)
@@ -108,11 +116,30 @@ def lancer_speedcalc():
 # Fonction pour exécuter le programme FoamCalc
 def lancer_foamcalc():
     # Commande à exécuter dans le terminal
-    commande = "python CalcFiles/FoamCalc.py"
+    commande = "python AppFiles/FoamCalc.py"
 
     # Ouvrir un terminal et exécuter la commande
     subprocess.Popen(commande, shell=True)
     window.destroy()
+
+# Fonction pour exécuter le programme FoamCalc
+def lancer_timeconverter():
+    # Commande à exécuter dans le terminal
+    commande = "python AppFiles/TimeConverter.py"
+
+    # Ouvrir un terminal et exécuter la commande
+    subprocess.Popen(commande, shell=True)
+    window.destroy()
+
+# Fonction pour exécuter le programme Clock
+def lancer_clock():
+    # Commande à exécuter dans le terminal
+    commande = "python AppFiles/clock.py"
+
+    # Ouvrir un terminal et exécuter la commande
+    subprocess.Popen(commande, shell=True)
+    window.destroy()
+
 
 
 # Fonction pour dessiner le dégradé
@@ -173,6 +200,14 @@ version_text = Label(window, text=f"Version : {version_installee}")
 # Positionner le Text dans la fenêtre
 version_text.place(relx=0.0, rely=0.0)
 
+# Bouton "PatchNote" en haut à droite
+bouton_patchnote = Button(window, text="Patch Note", command=patch)
+bouton_patchnote.place(relx=0.95, rely=0.05, anchor=NE)  # Positionnement en haut à droite
+
+# Bouton "Report Bug" en haut à droite
+bouton_report = Button(window, text="Report Bug", command=report_bug)
+bouton_report.place(relx=0.95, rely=0.15, anchor=NE)
+
 
 # Créer un label pour afficher le logo
 logo_label = Label(window, image=logo_image)
@@ -183,15 +218,15 @@ bouton_speedcalc = Button(window, text="SpeedCalc", command=lancer_speedcalc, wi
 bouton_speedcalc.place(relx=0.2, rely=0.7, anchor=CENTER)  # Positionnement au centre
 
 # Bouton pour lancer SpeedCalc
-bouton_speedcalc = Button(window, text="FoamCalc", command=lancer_foamcalc, width=15)
+bouton_speedcalc = Button(window, text="Time Converter", command=lancer_timeconverter, width=15)
 bouton_speedcalc.place(relx=0.2, rely=0.8, anchor=CENTER)  # Positionnement au centre
 
 # Bouton placeholder
-bouton_placeholder = Button(window, text="SOON", command="", width=15)
+bouton_placeholder = Button(window, text="FoamCalc", command=lancer_foamcalc, width=15)
 bouton_placeholder.place(relx=0.2, rely=0.9, anchor=CENTER)  # Positionnement au centre
 
 # Bouton placeholder
-bouton_placeholder = Button(window, text="SOON", command="", width=15)
+bouton_placeholder = Button(window, text="Clock", command=lancer_clock, width=15)
 bouton_placeholder.place(relx=0.5, rely=0.7, anchor=CENTER)  # Positionnement au centre
 
 # Bouton placeholder

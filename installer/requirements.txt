@@ -1,0 +1,12 @@
+tkinter
+subprocess
+webbrowser
+datetime
+requests
+os
+cx_Freeze
+pyshortcuts
+pathlib
+shutil
+plyer
+sys

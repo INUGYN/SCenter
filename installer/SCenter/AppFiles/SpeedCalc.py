@@ -34,6 +34,8 @@ def mettre_a_jour_unite_mesure():
         unite_mesure = "cm"
     elif var_kilometre.get():
         unite_mesure = "km"
+    
+    label_distance.config(text=f"Distance ({unite_mesure}):")
 
 # Fonction pour exécuter le programme SpeedCalc
 def calculer_vitesse():
@@ -123,18 +125,18 @@ dessiner_degrade()
 
 # Créer un label pour afficher le logo
 logo_label = Label(window, image=logo_image)
-logo_label.place(relx=0.5, rely=0.2, anchor=CENTER)  # Positionnement au centre
+logo_label.place(relx=0.15, rely=0.2, anchor=CENTER)  # Positionnement au centre
 
 # Champ de texte pour la distance
 champ_distance = Entry(window)
 champ_distance.place(relx=0.5, rely=0.6, anchor=CENTER)  # Positionnement au centre horizontal
-label_distance = Label(window, text="Distance:")
+label_distance = Label(window, text=f"Distance ({unite_mesure}):")
 label_distance.place(relx=0.3, rely=0.6, anchor=E)  # Positionnement à gauche
 
 # Champ de texte pour le temps
 champ_temps = Entry(window)
 champ_temps.place(relx=0.5, rely=0.7, anchor=CENTER)  # Positionnement au centre horizontal
-label_temps = Label(window, text="Temps:")
+label_temps = Label(window, text="Temps (s):")
 label_temps.place(relx=0.3, rely=0.7, anchor=E)  # Positionnement à gauche
 
 # Bouton pour calculer la vitesse
@@ -153,13 +155,14 @@ bouton_retour.place(relx=0.95, rely=0.05, anchor=NE)  # Positionnement en haut �
 var_metre = IntVar()
 var_centimetre = IntVar()
 var_kilometre = IntVar()
+var_metre.set(1)
 
 # Créer des boutons cocher pour les options de mesure
-checkbutton_metre = Checkbutton(window, text="Mètre", variable=var_metre, command=metre_check)
-checkbutton_metre.place(relx=0.3, rely=0.5, anchor=E)
-
 checkbutton_centimetre = Checkbutton(window, text="Centimètre", variable=var_centimetre, command=centimetre_check)
-checkbutton_centimetre.place(relx=0.5, rely=0.5, anchor=CENTER)
+checkbutton_centimetre.place(relx=0.3, rely=0.5, anchor=E)
+
+checkbutton_metre = Checkbutton(window, text="Mètre", variable=var_metre, command=metre_check)
+checkbutton_metre.place(relx=0.5, rely=0.5, anchor=CENTER)
 
 checkbutton_kilometre = Checkbutton(window, text="Kilomètre", variable=var_kilometre, command=kilometre_check)
 checkbutton_kilometre.place(relx=0.7, rely=0.5, anchor=W)

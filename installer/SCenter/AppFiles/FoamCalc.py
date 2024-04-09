@@ -81,7 +81,7 @@ dessiner_degrade()
 
 # Créer un label pour afficher le logo
 logo_label = Label(window, image=logo_image)
-logo_label.place(relx=0.5, rely=0.2, anchor=CENTER)  # Positionnement au centre
+logo_label.place(relx=0.15, rely=0.2, anchor=CENTER)  # Positionnement au centre
 
 # Champ pour calcul de masse d'ai dans la mousse
 
