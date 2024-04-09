@@ -1,6 +1,12 @@
 from tkinter import *
 import subprocess
+import os
 from datetime import datetime, timedelta
+
+# Création d'une variable redirigeant vers le répertoire
+repertoire = os.path.dirname(os.path.abspath(__file__))
+repertoire = os.path.normpath(repertoire)
+rep_default = os.path.normpath(os.path.join(repertoire, ".."))
 
 # Déclaration des variables globales
 stopwatch_update_id = None
@@ -10,8 +16,7 @@ is_running = False
 # Fonction pour exécuter le script EnstaCenter.py
 def retour():
     # Commande à exécuter dans le terminal
-    commande = "cd ../"
-    commande = "python " + "EnstaCenter.py"
+    commande = "python " + f"{rep_default}/SCenter.py"
 
     # Ouvrir un terminal et exécuter la commande
     subprocess.Popen(commande, shell=True)
@@ -138,10 +143,10 @@ window.resizable(width=False, height=False)
 window.attributes('-fullscreen', False)
 
 # Charger l'icône
-window.iconbitmap("logo.ico")
+window.iconbitmap(f"{rep_default}/logo.ico")
 
 # Charger une image plus petite pour le logo
-logo_image = PhotoImage(file="logo.png").subsample(2)  # Réduire la taille de moitié
+logo_image = PhotoImage(file=f"{rep_default}/logo.png").subsample(2)  # Réduire la taille de moitié
 
 # Créer un canevas pour l'arrière-plan avec un dégradé
 canvas = Canvas(window)

@@ -20,6 +20,10 @@ def report_bug():
 # Création d'une variable redirigeant vers le répertoire
 repertoire = os.path.dirname(os.path.abspath(__file__))
 repertoire = os.path.normpath(repertoire)
+rep_default = os.path.normpath(os.path.join(repertoire, ".."))
+rep_default2 = os.path.normpath(os.path.join(rep_default, ".."))
+print(rep_default)
+rep_app = f"{rep_default2}/SCenter/AppFiles"
 maj_activate = "non"
 
 
@@ -106,7 +110,7 @@ def maj(latest_version):
 # Fonction pour exécuter le programme SpeedCalc
 def lancer_speedcalc():
     # Commande à exécuter dans le terminal
-    commande = "python AppFiles/speedcalc.py"
+    commande = f"python {rep_app}/speedcalc.py"
 
     # Ouvrir un terminal et exécuter la commande
     subprocess.Popen(commande, shell=True)
@@ -116,7 +120,7 @@ def lancer_speedcalc():
 # Fonction pour exécuter le programme FoamCalc
 def lancer_foamcalc():
     # Commande à exécuter dans le terminal
-    commande = "python AppFiles/FoamCalc.py"
+    commande = f"python {rep_app}/FoamCalc.py"
 
     # Ouvrir un terminal et exécuter la commande
     subprocess.Popen(commande, shell=True)
@@ -125,7 +129,7 @@ def lancer_foamcalc():
 # Fonction pour exécuter le programme FoamCalc
 def lancer_timeconverter():
     # Commande à exécuter dans le terminal
-    commande = "python AppFiles/TimeConverter.py"
+    commande = f"python {rep_app}/TimeConverter.py"
 
     # Ouvrir un terminal et exécuter la commande
     subprocess.Popen(commande, shell=True)
@@ -134,7 +138,7 @@ def lancer_timeconverter():
 # Fonction pour exécuter le programme Clock
 def lancer_clock():
     # Commande à exécuter dans le terminal
-    commande = "python AppFiles/clock.py"
+    commande = f"python {rep_app}/clock.py"
 
     # Ouvrir un terminal et exécuter la commande
     subprocess.Popen(commande, shell=True)
@@ -183,10 +187,10 @@ window.resizable(width=False, height=False)
 window.attributes('-fullscreen', False)
 
 # Charger l'icône
-window.iconbitmap("logo.ico")
+window.iconbitmap(f"{repertoire}/logo.ico")
 
 # Charger une image plus petite pour le logo
-logo_image = PhotoImage(file="logo.png").subsample(2)  # Réduire la taille de moitié
+logo_image = PhotoImage(file=f"{repertoire}/logo.png").subsample(2)  # Réduire la taille de moitié
 
 # Créer un canevas pour l'arrière-plan avec un dégradé
 canvas = Canvas(window)

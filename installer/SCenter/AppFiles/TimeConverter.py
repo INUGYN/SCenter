@@ -1,9 +1,18 @@
 from tkinter import *
+import os
 import subprocess
 
+# Création d'une variable redirigeant vers le répertoire
+repertoire = os.path.dirname(os.path.abspath(__file__))
+repertoire = os.path.normpath(repertoire)
+rep_default = os.path.normpath(os.path.join(repertoire, ".."))
+
+# Fonction pour exécuter le script EnstaCenter.py
 def retour():
-    commande = "cd ../"
-    commande = "python " + "EnstaCenter.py"
+    # Commande à exécuter dans le terminal
+    commande = "python " + f"{rep_default}/SCenter.py"
+
+    # Ouvrir un terminal et exécuter la commande
     subprocess.Popen(commande, shell=True)
     window.destroy()
 
@@ -148,7 +157,8 @@ y_position = (screen_height - hauteur_fenetre) // 2
 window.geometry(f"+{x_position}+{y_position}")
 window.resizable(width=False, height=False)
 window.attributes('-fullscreen', False)
-logo_image = PhotoImage(file="logo.png").subsample(2)
+window.iconbitmap(f"{rep_default}/logo.ico")
+logo_image = PhotoImage(file=f"{rep_default}/logo.png").subsample(2)
 canvas = Canvas(window)
 canvas.place(relx=0, rely=0, relwidth=1, relheight=1)
 dessiner_degrade()
