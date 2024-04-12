@@ -68,7 +68,7 @@ def maj(latest_version):
     # Création de la fenêtre
     window = tk.Tk()
     window.title("Mise à jour")
-    window.iconbitmap(f"{repertoire}/logo.ico")
+    window.iconbitmap(f'{repertoire}\logo.ico')
 
     # Obtention des dimensions de l'écran
     screen_width = window.winfo_screenwidth()
