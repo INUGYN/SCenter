@@ -7,14 +7,14 @@ import os
 
 
 # Version actuellement installée
-version_installee = "1.0"  # Remplacez par la version installée sur votre système
+version_installee = "1.5"  # Remplacez par la version installée sur votre système
 
 def patch():
-    url_patch = "https://github.com/INUGYN/EnstaCenterMAJ/releases"
+    url_patch = "https://github.com/INUGYN/SCenterMAJ/releases"
     webbrowser.open(url_patch)
 
 def report_bug():
-    url_report = "mailto:matteovalleix83@gmail.com?Subject=Bug%20Report%20from%20EnstaCenter"
+    url_report = "mailto:matteovalleix83@gmail.com?Subject=Bug%20Report%20from%20SCenter"
     webbrowser.open(url_report)
 
 # Création d'une variable redirigeant vers le répertoire
@@ -27,7 +27,7 @@ maj_activate = "non"
 def maj_test():
     global maj_activate
     # URL de votre référentiel GitHub
-    github_repo_api = 'https://api.github.com/repos/INUGYN/EnstaCenterMAJ'
+    github_repo_api = 'https://api.github.com/repos/INUGYN/SCenterMAJ'
 
     try:
         # Obtenir les informations des releases du référentiel
@@ -56,7 +56,7 @@ def maj_test():
 def maj(latest_version):
     # Fonction appelée lorsque le bouton de mise à jour est cliqué
     def update_button_click():
-        webbrowser.open("https://github.com/INUGYN/EnstaCenter/archive/refs/heads/main.zip")
+        webbrowser.open("https://github.com/INUGYN/SCenter/archive/refs/heads/main.zip")
         global maj_activate
         maj_activate = "oui"
         exit()
@@ -162,14 +162,8 @@ def dessiner_degrade(event=None):
 # Créer la fenêtre principale
 window = Tk()
 
-print("--------")
-print(repertoire)
-print()
-print(rep_app)
-print("--------")
-
 # Nom de la fenêtre
-window.title("EnstaCenter")
+window.title("SCenter")
 
 # Taille de la fenêtre au démarrage
 largeur_fenetre = 400

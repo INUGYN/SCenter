@@ -7,7 +7,7 @@ repertoire = os.path.dirname(os.path.abspath(__file__))
 repertoire = os.path.normpath(repertoire)
 rep_default = os.path.normpath(os.path.join(repertoire, ".."))
 
-# Fonction pour exécuter le script EnstaCenter.py
+# Fonction pour exécuter le script SCenter.py
 def retour():
     # Commande à exécuter dans le terminal
     commande = "python " + f'"{rep_default}/SCenter.py"'
@@ -94,7 +94,7 @@ def dessiner_degrade(event=None):
 window = Tk()
 
 # Nom de la fenêtre
-window.title("EnstaCenter")
+window.title("SCenter - SpeedCalc")
 
 # Taille de la fenêtre au démarrage
 largeur_fenetre = 400

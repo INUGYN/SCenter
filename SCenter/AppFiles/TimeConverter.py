@@ -7,7 +7,7 @@ repertoire = os.path.dirname(os.path.abspath(__file__))
 repertoire = os.path.normpath(repertoire)
 rep_default = os.path.normpath(os.path.join(repertoire, ".."))
 
-# Fonction pour exécuter le script EnstaCenter.py
+# Fonction pour exécuter le script SCenter.py
 def retour():
     # Commande à exécuter dans le terminal
     commande = "python " + f'"{rep_default}/SCenter.py"'
@@ -146,7 +146,7 @@ def convertir_temps(temps, unite_source, unite_cible):
     return temps_converti
 
 window = Tk()
-window.title("Convertisseur de temps")
+window.title("SCenter - TimeConverter")
 largeur_fenetre = 400
 hauteur_fenetre = 350
 window.geometry(f"{largeur_fenetre}x{hauteur_fenetre}")

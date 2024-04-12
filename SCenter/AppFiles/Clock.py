@@ -13,7 +13,7 @@ stopwatch_update_id = None
 start_time = None
 is_running = False
 
-# Fonction pour exécuter le script EnstaCenter.py
+# Fonction pour exécuter le script SCenter.py
 def retour():
     # Commande à exécuter dans le terminal
     commande = "python " + f'"{rep_default}/SCenter.py"'
@@ -122,7 +122,7 @@ def pause_stopwatch():
 window = Tk()
 
 # Nom de la fenêtre
-window.title("EnstaCenter")
+window.title("SCenter - Clock")
 
 # Taille de la fenêtre au démarrage
 largeur_fenetre = 400

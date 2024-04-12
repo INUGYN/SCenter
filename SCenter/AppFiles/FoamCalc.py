@@ -22,7 +22,7 @@ def calculer_mousse():
     #    # Gérer les erreurs si les valeurs entrées ne sont pas valides
     #    label_resultat.config(text="Entrez des valeurs numériques valides!")
 
-# Fonction pour exécuter le script EnstaCenter.py
+# Fonction pour exécuter le script SCenter.py
 def retour():
     # Commande à exécuter dans le terminal
     commande = "python " + f'"{rep_default}/SCenter.py"'
@@ -50,7 +50,7 @@ def dessiner_degrade(event=None):
 window = Tk()
 
 # Nom de la fenêtre
-window.title("EnstaCenter")
+window.title("SCenter - FoamCalc")
 
 # Taille de la fenêtre au démarrage
 largeur_fenetre = 400
