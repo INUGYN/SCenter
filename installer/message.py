@@ -12,7 +12,7 @@ def show_notification():
     plyer.notification.notify(
         title='Installation réussie !',
         message='SCenter à bien été installé.',
-        app_icon=f'{repertoire}/SCenter/logo.ico',  # Chemin vers une icône personnalisée si nécessaire
+        app_icon=f'{repertoire}/logo.ico',  # Chemin vers une icône personnalisée si nécessaire
         timeout=5,  # Durée d'affichage de la notification en secondes
         ticker='Notification',  # Texte court qui apparaît brièvement sur certaines plateformes
         toast=True,  # Utiliser les notifications "toast" sur Windows 10

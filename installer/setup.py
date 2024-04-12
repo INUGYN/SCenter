@@ -6,8 +6,8 @@ from pyshortcuts import make_shortcut
 from cx_Freeze import setup, Executable
 
 repertoire = os.path.dirname(os.path.abspath(__file__))
-repertoire = os.path.normpath(repertoire)
-repertoire_files = f"{repertoire}/SCenter"
+rep_dl = os.path.normpath(os.path.join(repertoire, ".."))
+repertoire_files = f"{rep_dl}/SCenter"
 
 # Chemin vers le dossier de destination dans C:/Program Files
 program = os.path.join("C:/Program Files")

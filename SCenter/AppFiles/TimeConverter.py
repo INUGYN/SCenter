@@ -10,7 +10,7 @@ rep_default = os.path.normpath(os.path.join(repertoire, ".."))
 # Fonction pour exécuter le script EnstaCenter.py
 def retour():
     # Commande à exécuter dans le terminal
-    commande = "python " + f"{rep_default}/SCenter.py"
+    commande = "python " + f'"{rep_default}/SCenter.py"'
 
     # Ouvrir un terminal et exécuter la commande
     subprocess.Popen(commande, shell=True)

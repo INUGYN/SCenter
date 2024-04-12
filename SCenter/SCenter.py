@@ -19,12 +19,9 @@ def report_bug():
 
 # Création d'une variable redirigeant vers le répertoire
 repertoire = os.path.dirname(os.path.abspath(__file__))
-repertoire = os.path.normpath(repertoire)
-rep_default = os.path.normpath(os.path.join(repertoire, ".."))
-rep_default2 = os.path.normpath(os.path.join(rep_default, ".."))
-print(rep_default)
-rep_app = f"{rep_default2}/SCenter/AppFiles"
+rep_app = f'"{repertoire}/AppFiles"'
 maj_activate = "non"
+
 
 
 def maj_test():
@@ -165,6 +162,12 @@ def dessiner_degrade(event=None):
 # Créer la fenêtre principale
 window = Tk()
 
+print("--------")
+print(repertoire)
+print()
+print(rep_app)
+print("--------")
+
 # Nom de la fenêtre
 window.title("EnstaCenter")
 
@@ -261,3 +264,6 @@ maj_test()
 
 # Lancer l'application Tkinter
 window.mainloop()
+
+
+#### SpeedCalc ####

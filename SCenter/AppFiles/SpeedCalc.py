@@ -7,6 +7,15 @@ repertoire = os.path.dirname(os.path.abspath(__file__))
 repertoire = os.path.normpath(repertoire)
 rep_default = os.path.normpath(os.path.join(repertoire, ".."))
 
+# Fonction pour exécuter le script EnstaCenter.py
+def retour():
+    # Commande à exécuter dans le terminal
+    commande = "python " + f'"{rep_default}/SCenter.py"'
+
+    # Ouvrir un terminal et exécuter la commande
+    subprocess.Popen(commande, shell=True)
+    window.destroy()
+
 # Variables pour l'unité de mesure
 unite_mesure = "m"  # Par défaut, en mètres
 
@@ -65,15 +74,6 @@ def calculer_vitesse():
     except ValueError as e:
         # Gérer les erreurs si les valeurs entrées ne sont pas valides
         label_resultat.config(text=str(e))
-
-# Fonction pour exécuter le script EnstaCenter.py
-def retour():
-    # Commande à exécuter dans le terminal
-    commande = "python " + f"{rep_default}/SCenter.py"
-
-    # Ouvrir un terminal et exécuter la commande
-    subprocess.Popen(commande, shell=True)
-    window.destroy()
 
 # Fonction pour dessiner le dégradé
 def dessiner_degrade(event=None):

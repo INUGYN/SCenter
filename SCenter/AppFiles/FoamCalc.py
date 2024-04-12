@@ -6,10 +6,26 @@ import os
 repertoire = os.path.dirname(os.path.abspath(__file__))
 repertoire = os.path.normpath(repertoire)
 rep_default = os.path.normpath(os.path.join(repertoire, ".."))
-# Fonction pour exécuter le script SCenter.py
+
+# Fonction pour exécuter le programme SpeedCalc
+def calculer_mousse():
+    pass
+    #try:
+    #    # Récupérer les valeurs des champs de texte
+    #    distance = float(champ_distance.get())
+    #    temps = float(champ_temps.get())
+    #    # Calculer la vitesse
+    #    vitesse = distance / temps
+    #    # Afficher la vitesse dans le label de résultat
+    #    label_resultat.config(text=f"Vitesse: {vitesse:.2f} m/s")
+    #except ValueError:
+    #    # Gérer les erreurs si les valeurs entrées ne sont pas valides
+    #    label_resultat.config(text="Entrez des valeurs numériques valides!")
+
+# Fonction pour exécuter le script EnstaCenter.py
 def retour():
     # Commande à exécuter dans le terminal
-    commande = "python " + f"{rep_default}/SCenter.py"
+    commande = "python " + f'"{rep_default}/SCenter.py"'
 
     # Ouvrir un terminal et exécuter la commande
     subprocess.Popen(commande, shell=True)
@@ -55,10 +71,10 @@ window.resizable(width=False, height=False)
 window.attributes('-fullscreen', False)
 
 # Charger l'icône
-window.iconbitmap(f"{rep_default}logo.ico")
+window.iconbitmap(f"{rep_default}/logo.ico")
 
 # Charger une image plus petite pour le logo
-logo_image = PhotoImage(file=f"{rep_default}logo.png").subsample(2)  # Réduire la taille de moitié
+logo_image = PhotoImage(file=f"{rep_default}/logo.png").subsample(2)  # Réduire la taille de moitié
 
 # Créer un canevas pour l'arrière-plan avec un dégradé
 canvas = Canvas(window)
