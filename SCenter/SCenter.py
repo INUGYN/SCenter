@@ -1,6 +1,7 @@
 from tkinter import *
 import tkinter as tk
 import subprocess
+import shutil
 import webbrowser
 import requests
 import os
@@ -22,11 +23,35 @@ repertoire = os.path.dirname(os.path.abspath(__file__))
 rep_app = f'"{repertoire}/AppFiles"'
 maj_activate = "non"
 
+def files_test():
+    # Chemin des fichiers sur le bureau
+    bureau = os.path.join(os.path.expanduser("~"), "Desktop")
+    scenter_main = os.path.join(bureau, "SCenter-main")
+    scenter_zip = os.path.join(bureau, "SCenter.zip")
+    
+    # Vérifier l'existence des fichiers
+    if os.path.exists(scenter_main):
+        # Supprimer SCenter-main s'il existe
+        try:
+            shutil.rmtree(scenter_main)
+            print("Le dossier SCenter-main a été supprimé avec succès.")
+        except Exception as e:
+            print(f"Erreur lors de la suppression du dossier SCenter-main : {e}")
 
+    if os.path.exists(scenter_zip):
+        # Supprimer SCenter.zip s'il existe
+        try:
+            os.remove(scenter_zip)
+            print("Le fichier SCenter.zip a été supprimé avec succès.")
+        except Exception as e:
+            print(f"Erreur lors de la suppression du fichier SCenter.zip : {e}")
+
+# Appeler la fonction pour tester et supprimer les fichiers
+files_test()
 
 def maj_test():
     global maj_activate
-    # URL de votre référentiel GitHub
+    # URL du référentiel GitHub
     github_repo_api = 'https://api.github.com/repos/INUGYN/SCenterMAJ'
 
     try:
@@ -104,18 +129,43 @@ def maj(latest_version):
     window.mainloop()
 
 
+# Fonction pour exécuter le programme SpeedCalc
+def lancer_speedcalc():
+    # Commande à exécuter dans le terminal
+    commande = f"python {rep_app}/speedcalc.py"
+
+    # Ouvrir un terminal et exécuter la commande
+    subprocess.Popen(commande, shell=True)
+    window.destroy()
+
+
+# Fonction pour exécuter le programme FoamCalc
+def lancer_foamcalc():
+    # Commande à exécuter dans le terminal
+    commande = f"python {rep_app}/FoamCalc.py"
+
+    # Ouvrir un terminal et exécuter la commande
+    subprocess.Popen(commande, shell=True)
+    window.destroy()
+
+# Fonction pour exécuter le programme FoamCalc
+def lancer_timeconverter():
+    # Commande à exécuter dans le terminal
+    commande = f"python {rep_app}/TimeConverter.py"
+
+    # Ouvrir un terminal et exécuter la commande
+    subprocess.Popen(commande, shell=True)
+    window.destroy()
+
 # Fonction pour exécuter le programme Clock
 def lancer_clock():
     # Commande à exécuter dans le terminal
     commande = f"python {rep_app}/clock.py"
 
-    # Vérifier si le fichier existe avant de l'exécuter
-    if os.path.exists(f"{rep_app}/clock.py"):
-        # Ouvrir un terminal et exécuter la commande
-        subprocess.Popen(commande, shell=True)
-        window.destroy()
-    else:
-        print("Le fichier clock.py n'existe pas.")
+    # Ouvrir un terminal et exécuter la commande
+    subprocess.Popen(commande, shell=True)
+    window.destroy()
+
 
 
 # Fonction pour dessiner le dégradé
@@ -189,9 +239,41 @@ bouton_report.place(relx=0.95, rely=0.15, anchor=NE)
 logo_label = Label(window, image=logo_image)
 logo_label.place(relx=0.5, rely=0.2, anchor=CENTER)  # Positionnement au centre
 
-# Bouton pour lancer Clock
-bouton_clock = Button(window, text="Clock", command=lancer_clock, width=15)
-bouton_clock.place(relx=0.5, rely=0.9, anchor=CENTER)  # Positionnement au centre
+# Bouton pour lancer SpeedCalc
+bouton_speedcalc = Button(window, text="SpeedCalc", command=lancer_speedcalc, width=15)
+bouton_speedcalc.place(relx=0.2, rely=0.7, anchor=CENTER)  # Positionnement au centre
+
+# Bouton pour lancer SpeedCalc
+bouton_speedcalc = Button(window, text="Time Converter", command=lancer_timeconverter, width=15)
+bouton_speedcalc.place(relx=0.2, rely=0.8, anchor=CENTER)  # Positionnement au centre
+
+# Bouton placeholder
+bouton_placeholder = Button(window, text="FoamCalc", command=lancer_foamcalc, width=15)
+bouton_placeholder.place(relx=0.2, rely=0.9, anchor=CENTER)  # Positionnement au centre
+
+# Bouton placeholder
+bouton_placeholder = Button(window, text="Clock", command=lancer_clock, width=15)
+bouton_placeholder.place(relx=0.5, rely=0.7, anchor=CENTER)  # Positionnement au centre
+
+# Bouton placeholder
+bouton_placeholder = Button(window, text="SOON", command="", width=15)
+bouton_placeholder.place(relx=0.5, rely=0.8, anchor=CENTER)  # Positionnement au centre
+
+# Bouton placeholder
+bouton_placeholder = Button(window, text="SOON", command="", width=15)
+bouton_placeholder.place(relx=0.5, rely=0.9, anchor=CENTER)  # Positionnement au centre
+
+# Bouton placeholder
+bouton_placeholder = Button(window, text="SOON", command="", width=15)
+bouton_placeholder.place(relx=0.8, rely=0.7, anchor=CENTER)  # Positionnement au centre
+
+# Bouton placeholder
+bouton_placeholder = Button(window, text="SOON", command="", width=15)
+bouton_placeholder.place(relx=0.8, rely=0.8, anchor=CENTER)  # Positionnement au centre
+
+# Bouton placeholder
+bouton_placeholder = Button(window, text="SOON", command="", width=15)
+bouton_placeholder.place(relx=0.8, rely=0.9, anchor=CENTER)  # Positionnement au centre
 
 # Lier la fonction de dessin au redimensionnement de la fenêtre
 window.bind("<Configure>", dessiner_degrade)
