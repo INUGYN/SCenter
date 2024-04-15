@@ -102,20 +102,13 @@ $installButton.Add_Click({
         if ($process.ExitCode -eq 0) {
             WriteToTerminal "Installation terminée."
 
-            # Supprimer le dossier SCenter-main du bureau s'il existe
-            $desktopPath = [Environment]::GetFolderPath("Desktop")
-            $scenterMainFolder = Join-Path -Path $desktopPath -ChildPath "SCenter-main"
-            if (Test-Path $scenterMainFolder) {
-                Remove-Item $scenterMainFolder -Force -Recurse
-                WriteToTerminal "Dossier SCenter-main supprimé."
-            }
+            # Planifier la suppression du dossier SCenter-main au prochain démarrage du système
+            $taskName = "DeleteSCenterMain"
+            $taskAction = New-ScheduledTaskAction -Execute "powershell.exe" -Argument "-Command `"Remove-Item 'C:\Users\USERNAME\Desktop\SCenter-main' -Force -Recurse`""
+            $trigger = New-ScheduledTaskTrigger -AtStartup
+            Register-ScheduledTask -TaskName $taskName -Action $taskAction -Trigger $trigger -RunLevel Highest -Force
 
-            # Supprimer le fichier SCenter.zip du bureau s'il existe
-            $scenterZipFile = Join-Path -Path $desktopPath -ChildPath "SCenter.zip"
-            if (Test-Path $scenterZipFile) {
-                Remove-Item $scenterZipFile -Force
-                WriteToTerminal "Fichier SCenter.zip supprimé."
-            }
+            WriteToTerminal "Suppression de SCenter-main planifiée au prochain démarrage du système."
 
             # Fermer automatiquement la fenêtre après 3 secondes
             Start-Sleep -Seconds 3
