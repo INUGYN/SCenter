@@ -101,8 +101,9 @@ $installButton.Add_Click({
 
         if ($process.ExitCode -eq 0) {
             WriteToTerminal "Installation terminée."
-
+            
             # Supprimer le fichier SCenter.zip du bureau s'il existe
+            $desktopPath = [Environment]::GetFolderPath("Desktop")
             $scenterZipFile = Join-Path -Path $desktopPath -ChildPath "SCenter.zip"
             if (Test-Path $scenterZipFile) {
                 Remove-Item $scenterZipFile -Force
