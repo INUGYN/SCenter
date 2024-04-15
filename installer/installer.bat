@@ -1,58 +1,54 @@
-::[Bat To Exe Converter]
-::
-::YAwzoRdxOk+EWAjk
-::fBw5plQjdCyDJGyX8VAjFDJ6eSCnCleeCbYJ5e31+/m7hUQJfPc9RLz437qaJfIv40v3YZch2n9IpMcDCxQWdxGkDg==
-::YAwzuBVtJxjWCl3EqQJhSA==
-::ZR4luwNxJguZRRmh+lEkKXs=
-::Yhs/ulQjdF+5
-::cxAkpRVqdFKZSDk=
-::cBs/ulQjdF+5
-::ZR41oxFsdFKZSDk=
-::eBoioBt6dFKZSDk=
-::cRo6pxp7LAbNWATEpCI=
-::egkzugNsPRvcWATEpCI=
-::dAsiuh18IRvcCxnZtBJQ
-::cRYluBh/LU+EWAnk
-::YxY4rhs+aU+JeA==
-::cxY6rQJ7JhzQF1fEqQJQ
-::ZQ05rAF9IBncCkqN+0xwdVs0
-::ZQ05rAF9IAHYFVzEqQJQ
-::eg0/rx1wNQPfEVWB+kM9LVsJDGQ=
-::fBEirQZwNQPfEVWB+kM9LVsJDGQ=
-::cRolqwZ3JBvQF1fEqQJQ
-::dhA7uBVwLU+EWDk=
-::YQ03rBFzNR3SWATElA==
-::dhAmsQZ3MwfNWATElA==
-::ZQ0/vhVqMQ3MEVWAtB9wSA==
-::Zg8zqx1/OA3MEVWAtB9wSA==
-::dhA7pRFwIByZRRnk
-::Zh4grVQjdCyDJGyX8VAjFDJ6eSCnCleeCbYJ5e31+/m7hUQJfPc9RLz437qaJfIv40v3YZch2n9IpOICHw9Zch6ufEExsWsi
-::YB416Ek+ZW8=
-::
-::
-::978f952a14a936cc963da21a135fa983
 @echo off
 setlocal
 
 REM Définition du chemin du bureau de l'utilisateur
 set "desktopPath=%USERPROFILE%\Desktop"
 
+REM Définition du chemin relatif vers le fichier contenant le token
+set "tokenFile=token.txt"
+
+REM Construction du chemin absolu vers le fichier
+set "tokenFilePath=%~dp0%tokenFile%"
+
+REM Vérification de l'existence du fichier de token
+if not exist "%tokenFilePath%" (
+    echo Le fichier de token n'existe pas.
+    exit /b 1
+)
+
+REM Lecture du jeton à partir du fichier
+set /p githubToken=<"%tokenFilePath%"
+
+REM Vérification que le jeton est défini
+if "%githubToken%"=="" (
+    echo Le jeton d'accès GitHub n'est pas défini.
+    exit /b 1
+)
+
 REM Définition de l'URL du référentiel à télécharger (en utilisant l'archive ZIP du référentiel)
-set "url=https://github.com/INUGYN/SCenter/archive/main.zip"
+set "username=INUGYN"
+set "repository=SCenter"
+set "url=https://github.com/%username%/%repository%/archive/main.zip?access_token=%githubToken%"
+
+REM Affichage de l'URL pour vérification
+echo L'URL générée est : %url%
 
 REM Définition du chemin du fichier ZIP à télécharger
 set "zipFilePath=%desktopPath%\SCenter.zip"
 
 REM Téléchargement de l'archive du référentiel depuis l'URL directement sur le bureau
+echo Téléchargement de l'archive depuis l'URL...
 powershell -Command "(New-Object Net.WebClient).DownloadFile('%url%', '%zipFilePath%')"
 
 REM Extrait l'archive directement sur le bureau
+echo Extraction de l'archive...
 powershell Expand-Archive -Path '%zipFilePath%' -DestinationPath '%desktopPath%'
 
 REM Déplacement vers le dossier installer
 cd /d "%desktopPath%\SCenter-main\installer"
 
 REM Exécution du script call_batch.ps1
+echo Exécution du script call_batch.ps1...
 powershell -ExecutionPolicy Bypass -File "%desktopPath%\SCenter-main\installer\call_batch.ps1"
 
 endlocal
