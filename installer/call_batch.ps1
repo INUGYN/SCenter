@@ -100,6 +100,8 @@ $installButton.Add_Click({
         }
 
         if ($process.ExitCode -eq 0) {
+            WriteToTerminal "Installation terminée."
+
             # Supprimer le dossier SCenter-main du bureau s'il existe
             $desktopPath = [Environment]::GetFolderPath("Desktop")
             $scenterMainFolder = Join-Path -Path $desktopPath -ChildPath "SCenter-main"
@@ -115,7 +117,6 @@ $installButton.Add_Click({
                 WriteToTerminal "Fichier SCenter.zip supprimé."
             }
 
-            WriteToTerminal "Installation terminée."
             # Fermer automatiquement la fenêtre après 3 secondes
             Start-Sleep -Seconds 3
             $form.Close()
