@@ -104,43 +104,18 @@ def maj(latest_version):
     window.mainloop()
 
 
-# Fonction pour exécuter le programme SpeedCalc
-def lancer_speedcalc():
-    # Commande à exécuter dans le terminal
-    commande = f"python {rep_app}/speedcalc.py"
-
-    # Ouvrir un terminal et exécuter la commande
-    subprocess.Popen(commande, shell=True)
-    window.destroy()
-
-
-# Fonction pour exécuter le programme FoamCalc
-def lancer_foamcalc():
-    # Commande à exécuter dans le terminal
-    commande = f"python {rep_app}/FoamCalc.py"
-
-    # Ouvrir un terminal et exécuter la commande
-    subprocess.Popen(commande, shell=True)
-    window.destroy()
-
-# Fonction pour exécuter le programme FoamCalc
-def lancer_timeconverter():
-    # Commande à exécuter dans le terminal
-    commande = f"python {rep_app}/TimeConverter.py"
-
-    # Ouvrir un terminal et exécuter la commande
-    subprocess.Popen(commande, shell=True)
-    window.destroy()
-
 # Fonction pour exécuter le programme Clock
 def lancer_clock():
     # Commande à exécuter dans le terminal
     commande = f"python {rep_app}/clock.py"
 
-    # Ouvrir un terminal et exécuter la commande
-    subprocess.Popen(commande, shell=True)
-    window.destroy()
-
+    # Vérifier si le fichier existe avant de l'exécuter
+    if os.path.exists(f"{rep_app}/clock.py"):
+        # Ouvrir un terminal et exécuter la commande
+        subprocess.Popen(commande, shell=True)
+        window.destroy()
+    else:
+        print("Le fichier clock.py n'existe pas.")
 
 
 # Fonction pour dessiner le dégradé
@@ -214,41 +189,9 @@ bouton_report.place(relx=0.95, rely=0.15, anchor=NE)
 logo_label = Label(window, image=logo_image)
 logo_label.place(relx=0.5, rely=0.2, anchor=CENTER)  # Positionnement au centre
 
-# Bouton pour lancer SpeedCalc
-bouton_speedcalc = Button(window, text="SpeedCalc", command=lancer_speedcalc, width=15)
-bouton_speedcalc.place(relx=0.2, rely=0.7, anchor=CENTER)  # Positionnement au centre
-
-# Bouton pour lancer SpeedCalc
-bouton_speedcalc = Button(window, text="Time Converter", command=lancer_timeconverter, width=15)
-bouton_speedcalc.place(relx=0.2, rely=0.8, anchor=CENTER)  # Positionnement au centre
-
-# Bouton placeholder
-bouton_placeholder = Button(window, text="FoamCalc", command=lancer_foamcalc, width=15)
-bouton_placeholder.place(relx=0.2, rely=0.9, anchor=CENTER)  # Positionnement au centre
-
-# Bouton placeholder
-bouton_placeholder = Button(window, text="Clock", command=lancer_clock, width=15)
-bouton_placeholder.place(relx=0.5, rely=0.7, anchor=CENTER)  # Positionnement au centre
-
-# Bouton placeholder
-bouton_placeholder = Button(window, text="SOON", command="", width=15)
-bouton_placeholder.place(relx=0.5, rely=0.8, anchor=CENTER)  # Positionnement au centre
-
-# Bouton placeholder
-bouton_placeholder = Button(window, text="SOON", command="", width=15)
-bouton_placeholder.place(relx=0.5, rely=0.9, anchor=CENTER)  # Positionnement au centre
-
-# Bouton placeholder
-bouton_placeholder = Button(window, text="SOON", command="", width=15)
-bouton_placeholder.place(relx=0.8, rely=0.7, anchor=CENTER)  # Positionnement au centre
-
-# Bouton placeholder
-bouton_placeholder = Button(window, text="SOON", command="", width=15)
-bouton_placeholder.place(relx=0.8, rely=0.8, anchor=CENTER)  # Positionnement au centre
-
-# Bouton placeholder
-bouton_placeholder = Button(window, text="SOON", command="", width=15)
-bouton_placeholder.place(relx=0.8, rely=0.9, anchor=CENTER)  # Positionnement au centre
+# Bouton pour lancer Clock
+bouton_clock = Button(window, text="Clock", command=lancer_clock, width=15)
+bouton_clock.place(relx=0.5, rely=0.9, anchor=CENTER)  # Positionnement au centre
 
 # Lier la fonction de dessin au redimensionnement de la fenêtre
 window.bind("<Configure>", dessiner_degrade)
