@@ -111,12 +111,11 @@ def maj(latest_version):
     window.geometry(f"{window_width}x{window_height}+{x}+{y}")
 
     # Texte indiquant qu'il y a une mise à jour
-    version_label = tk.Label(window, text=f"La version v{latest_version} est disponible !", font=("Arial", 14))
-    version_label.pack(pady=20)
+    text_label = tk.Label(window, text=f"La version v{latest_version} est disponible !", font=("Arial", 14))
+    text_label.pack(pady=20)
 
-
-    version_label_2 = tk.Label(window, text=f"Vous avez la version v{version_installee}.", font=("Arial", 14))
-    version_label_2.pack(pady=20)
+    text_label2 = tk.Label(window, text=f"Vous avez la version v{version_installee}.", font=("Arial", 14))
+    text_label2.pack(pady=20)
 
     # Bouton de mise à jour
     update_button = tk.Button(window, text="Mettre à jour", font=("Arial", 12), command=update_button_click)
@@ -224,11 +223,8 @@ dessiner_degrade()
 
 # Afficher la version
 version_text = Label(window, text=f"Version : {version_installee}")
-version_text.place(relx=0.01, rely=0.01)
-
-# Texte indiquant le Créateur
-createur_text = Label(window, text="© VALLX")
-createur_text.place(relx=0.01, rely=0.08)
+# Positionner le Text dans la fenêtre
+version_text.place(relx=0.0, rely=0.0)
 
 # Bouton "PatchNote" en haut à droite
 bouton_patchnote = Button(window, text="Patch Note", command=patch)
