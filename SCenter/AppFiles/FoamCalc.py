@@ -9,18 +9,19 @@ rep_default = os.path.normpath(os.path.join(repertoire, ".."))
 
 # Fonction pour exécuter le programme SpeedCalc
 def calculer_mousse():
-    pass
-    #try:
-    #    # Récupérer les valeurs des champs de texte
-    #    distance = float(champ_distance.get())
-    #    temps = float(champ_temps.get())
-    #    # Calculer la vitesse
-    #    vitesse = distance / temps
-    #    # Afficher la vitesse dans le label de résultat
-    #    label_resultat.config(text=f"Vitesse: {vitesse:.2f} m/s")
-    #except ValueError:
-    #    # Gérer les erreurs si les valeurs entrées ne sont pas valides
-    #    label_resultat.config(text="Entrez des valeurs numériques valides!")
+    try:
+        # Récupérer les valeurs des champs de texte
+        poids = float(champ_poids.get())
+        volume = float(champ_volume.get())
+        # Calculer la densité
+        densite = poids / volume
+        # Calculer le pourcentage d'air
+        pourcentage_air = (1 - densite / densite_sans_air) * 100
+        # Afficher les résultats
+        label_resultat.config(text=f"Densité de la mousse: {densite:.2f} g/cm³\nPourcentage d'air: {pourcentage_air:.2f}%")
+    except ValueError:
+        # Gérer les erreurs si les valeurs entrées ne sont pas valides
+        label_resultat.config(text="Entrez des valeurs numériques valides!")
 
 # Fonction pour exécuter le script SCenter.py
 def retour():
@@ -54,7 +55,7 @@ window.title("SCenter - FoamCalc")
 
 # Taille de la fenêtre au démarrage
 largeur_fenetre = 400
-hauteur_fenetre = 350
+hauteur_fenetre = 450
 window.geometry(f"{largeur_fenetre}x{hauteur_fenetre}")
 
 # Centrer la fenêtre à l'écran
@@ -87,7 +88,25 @@ dessiner_degrade()
 logo_label = Label(window, image=logo_image)
 logo_label.place(relx=0.15, rely=0.2, anchor=CENTER)  # Positionnement au centre
 
-# Champ pour calcul de masse d'ai dans la mousse
+# Champ pour calcul de masse d'air dans la mousse
+Label(window, text="Poids de la mousse (g):").place(relx=0.15, rely=0.5, anchor=CENTER)
+champ_poids = Entry(window)
+champ_poids.place(relx=0.55, rely=0.5, anchor=CENTER)
+
+Label(window, text="Volume de la mousse (cm³):").place(relx=0.15, rely=0.55, anchor=CENTER)
+champ_volume = Entry(window)
+champ_volume.place(relx=0.55, rely=0.55, anchor=CENTER)
+
+# Densité de l'objet solide sans les pores d'air
+densite_sans_air = 1.2  # Par exemple, pour le polyuréthane
+
+# Bouton pour calculer la densité
+bouton_calculer = Button(window, text="Calculer la densité", command=calculer_mousse)
+bouton_calculer.place(relx=0.5, rely=0.6, anchor=CENTER)
+
+# Label pour afficher le résultat
+label_resultat = Label(window, text="")
+label_resultat.place(relx=0.5, rely=0.75, anchor=CENTER)
 
 # Bouton "Retour" en haut à droite
 bouton_retour = Button(window, text="Retour", command=retour)
